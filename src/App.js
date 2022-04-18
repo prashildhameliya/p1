@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import Clock from './container/Clock';
+import Home from './container/Home/Home';
+import Loading from './Loading/Loading';
 
-function App() {
+
+const HomeWidthloading = Loading(Home)
+
+function App(props) {
+  const[Loading,setLoading] = useState(false);
+  const[data,setData] = useState([]);
+
+  const userData = [
+    {
+      id:101,
+      name:'dhameliya' 
+    },
+    {
+      id:102,
+      name:'prashil'
+    }
+  ]
+
+  useEffect(
+    () =>{
+      setLoading(true)
+      setTimeout(() => {setLoading(false); setData(userData)}, 2000)
+    },
+  [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <HomeWidthloading
+        isLoading = {Loading}
+        data = {data}
+        />
+
+        <Clock />
     </div>
   );
 }
